@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta chatset="UTF-8">
+<title>TRAPPVEL. La mano derecha del viajero.</title>
+<meta name="viewport" content="width=devide-width,user-scalable=no" />
+  <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+       <script src="js/jquery.js"></script>  
+  <script src="js/jquery.mobile-1.3.2.min.js"></script>   
+  <script type="text/javascript" src="phonegap.js"></script>
+ <style>
+     html, body, #map-canvas {
+        width:100%;
+        height: 380px;
+        margin: 0px;
+        padding: 0px;
+      }
+      #map-canvas {
+        border:0px solid red;
+      } 
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript">
+    $( document ).ready(function() {
+      // alert( "documento cargado" );
+    $('#map_canvas').height($(window).height() - (50 + $('[data-role=header]').height() - $('[data-role=footer]').height())); 
+
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    });
+
+
+    function onSuccess(position) {
+       var map;
+        var element = document.getElementById('geolocation');
+        var latitud=position.coords.latitude;
+        var longitud=position.coords.longitude;
+        
+        // element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+        //                     'Longitude: '          + position.coords.longitude             + '<br />' +
+        //                     'Altitude: '           + position.coords.altitude              + '<br />' +
+        //                     'Accuracy: '           + position.coords.accuracy              + '<br />' +
+        //                     'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+        //                     'Heading: '            + position.coords.heading               + '<br />' +
+        //                     'Speed: '              + position.coords.speed                 + '<br />' +
+        //                     'Timestamp: '          + position.timestamp                    + '<br />';
+        element.innerHTML ='Estas aqui:';
+ 
+    var centro=new google.maps.LatLng(latitud, longitud);
+    var mimapa=document.getElementById('map-canvas');
+    var mapOptions = {
+     zoom: 12,
+     center: centro,
+     mapTypeId: google.maps.MapTypeId.ROADMAP,
+  }
+    map = new google.maps.Map(mimapa,mapOptions);
+     var mkr=new google.maps.Marker({
+        map:map,
+        position:centro,
+        icon:'img/key_marker.png',
+        title:'Central de Desarrollo  - Keyframe Studio',
+     });
+
+     setTimeout(function() {
+       google.maps.event.trigger(map,'resize');
+      dropMarkers();
+       var markerCluster = new MarkerClusterer(map, markers);
+      map.fitBounds(bounds);}, 200); 
+
+
+
+    }
+   function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+ 
+    </script>
+</head>
+<body>
+    
+          <div data-role="page" data-theme="b" id="pagina1">
+            
+            <div data-role="header" data-theme="d"  data-position="fixed" data-id="header1">
+                <div style="width:100%;margin:0 auto;text-align:center;"> <img src="img/logo.png" style="width:90%;"></div>
+            </div>
+             <div data-role="content">
+                 <ul data-role="listview" data-theme="a" data-dividertheme="e">
+                    <li data-role="list-divider">TRANSPORTES</li>
+                        <li> <a href="#pagina2" data-transition="slide">Traslados</a></li>
+                        <li><a href="#pagina2" data-transition="flip">taxis</a></li>
+                        <li><a href="#pagina2">Transporte publico</a></li>
+                        <li><a href="#pagina2">Trenes</a></li>
+                        <li><a href="#pagina2">Vuelos</a></li>
+                        <li><a href="#pagina2">Cruceros</a></li>
+                    <li data-role="list-divider">MAPAS</li>
+                        <li> <a href="#pagina2">D&oacute;nde estoy?</a></li>
+                        <li> <a href="#pagina2">C&oacute;mo llegar</a></li>
+                    <li data-role="list-divider">NO TE PUEDES PERDER</li>
+                        <li> <a href="#pagina2">Eventos Culturales</a></li>
+                        <li> <a href="#pagina2">Rumba y Ocio</a></li>
+                        <li> <a href="#pagina2">Gastronomia Tipica</a></li>
+                        <li> <a href="#pagina2">Centros comerciales</a></li>
+                        <li> <a href="#pagina2">Parques Naturales</a></li>
+                        <li> <a href="#pagina2">Spa y Salud</a></li>
+                        <li> <a href="#pagina2">Rutas para caminar</a></li>
+                    <li data-role="list-divider">NECESARIOS</li>
+                        <li> <a href="#pagina2">Necesito Cambiar Moneda</a></li>
+                        <li> <a href="#pagina2">Necesito Embajadas</a></li>
+                        <li> <a href="#pagina2">Necesito un Policia</a></li>
+                        <li> <a href="#pagina2">Zonas Peligrosas</a></li>
+                        <li data-role="list-divider">UTILIDADES</li>
+                        <li> <a href="#pagina2">Llamar a mi agente de viajes</a></li>
+                        <li> <a href="#pagina2">Guardar una nota</a></li>
+                        <li> <a href="#pagina2">Enviar E-Mail</a></li>
+                        <li> <a href="#pagina2">Abrir Facebook</a></li>
+                        <li> <a href="#pagina2">Abrir Twitter</a></li>
+                        <li> <a href="#pagina2">Abrir Skype</a></li>
+                        <li data-role="list-divider"></li>
+                 </ul>
+         </div>
+             <div data-role="footer" data-position="fixed" data-theme="a" data-id="footer1">
+                    <div data-role="navbar">
+                    <ul>
+                    <li><a href="#pagina1" data-icon="home">Home</a></li>
+                         <li><a href="#" data-icon="gear">Opciones</a></li>
+                         <li><a href="#" data-icon="alert">Ayuda</a></li>
+                         <li><a href="#" data-icon="info">Info</a></li>     
+
+                    </ul>
+                </div>
+                <h6>(C) 2014 - Colombia - TRAPPVEL.COM</h6>
+            </div>
+        </div>
+
+                <div data-role="page" data-theme="b" id="pagina2" data-add-back-btn="true">
+                    <div data-role="header" data-theme="d" data-position="fixed" data-id="header1" >
+                    </div>
+</br></br>
+                    <div style="width:100%;margin:0 auto;text-align:center;"> <img src="img/logo.png" style="width:90%;"></div>
+                     <div data-role="content">
+                           <p id="geolocation">Buscando geolocalizacion...</p>
+                           <div id="map-canvas">hola</div>
+                     </div>
+             <div data-role="footer" data-position="fixed" data-theme="a" data-id="footer1">
+                 <div data-role="navbar">
+                    <ul>
+                        <li><a href="#pagina1" data-icon="home">Home</a></li>
+                         <li><a href="#" data-icon="gear">Opciones</a></li>
+                         <li><a href="#" data-icon="alert">Ayuda</a></li>
+                         <li><a href="#" data-icon="info">Info</a></li> 
+
+                    </ul>
+                </div>
+                    <h6>(C) 2014 - Colombia - TRAPPVEL.COM</h6>
+            </div>
+        </div>  
+ 
+</body>
+<html>
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Trappvel</title>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+         <script type="text/javascript">
+ 
+       //  document.addEventListener("deviceready", onDeviceReady, false);
+   
+  $( document ).ready(function() {
+       // alert( "documento cargado" );
+        
+         navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    });
+
+
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        
+        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                            'Heading: '            + position.coords.heading               + '<br />' +
+                            'Speed: '              + position.coords.speed                 + '<br />' +
+                            'Timestamp: '          + position.timestamp                    + '<br />';
+    }
+   function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+
+    </script>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Trappvel Todo Fluye</h1>
+             <p id="geolocation">Buscando geolocalizacion...</p>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+                
+            </div>
+        </div>
+  
+    </body>
+</html> -->
